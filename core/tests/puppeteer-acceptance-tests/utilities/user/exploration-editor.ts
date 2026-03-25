@@ -2855,6 +2855,7 @@ export class ExplorationEditor extends BaseUser {
    * @param {string} content - The content to be added to the card.
    */
   async updateCardContent(content: string): Promise<void> {
+    await this.navigateToEditorTab();
     await this.page.waitForSelector(stateEditSelector, {
       visible: true,
     });
