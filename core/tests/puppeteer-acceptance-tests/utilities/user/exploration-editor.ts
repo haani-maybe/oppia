@@ -2867,10 +2867,22 @@ export class ExplorationEditor extends BaseUser {
    */
   async updateCardContent(content: string): Promise<void> {
     await this.navigateToEditorTab();
-    await this.page.waitForSelector(stateEditSelector, {
+    const isStateContentEditorAlreadyOpen = await this.isElementVisible(
+      stateContentInputField,
+      true,
+      5000
+    );
+
+    if (!isStateContentEditorAlreadyOpen) {
+      await this.page.waitForSelector(stateEditSelector, {
+        visible: true,
+      });
+      await this.clickOnElementWithSelector(stateEditSelector);
+    }
+
+    await this.page.waitForSelector(stateContentInputField, {
       visible: true,
     });
-    await this.clickOnElementWithSelector(stateEditSelector);
     await this.clearAllTextFrom(stateContentInputField);
     await this.typeInInputField(stateContentInputField, `${content}`);
     await this.clickOnElementWithSelector(saveContentButton);
