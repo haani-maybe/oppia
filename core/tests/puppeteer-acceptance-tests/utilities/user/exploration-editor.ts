@@ -2488,7 +2488,8 @@ export class ExplorationEditor extends BaseUser {
    */
   async navigateToExplorationEditorFromCreatorDashboard(): Promise<void> {
     await this.page.waitForSelector(createExplorationButtonSelector);
-    await this.clickAndWaitForNavigation(createExplorationButtonSelector, true);
+    await this.waitForElementToStabilize(createExplorationButtonSelector);
+    await this.clickOnElementWithSelector(createExplorationButtonSelector);
 
     await this.page.waitForFunction(
       (targetURL: string) => {
@@ -2503,7 +2504,17 @@ export class ExplorationEditor extends BaseUser {
    * Function to navigate to exploration editor.
    */
   async navigateToExplorationEditorPage(): Promise<void> {
-    await this.clickAndWaitForNavigation(createExplorationButtonSelector, true);
+    await this.page.waitForSelector(createExplorationButtonSelector);
+    await this.waitForElementToStabilize(createExplorationButtonSelector);
+    await this.clickOnElementWithSelector(createExplorationButtonSelector);
+
+    await this.page.waitForFunction(
+      (targetURL: string) => {
+        return document.URL.includes(targetURL);
+      },
+      {},
+      `${baseUrl}/create/`
+    );
   }
 
   /**

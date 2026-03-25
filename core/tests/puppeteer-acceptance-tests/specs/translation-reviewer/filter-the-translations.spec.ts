@@ -60,19 +60,16 @@ describe('Translation Reviewer', function () {
 
     // Create translation opportunity.
     const explorationId =
-      await curriculumAdm.createAndPublishAMinimalExplorationWithTitle(
+      await curriculumAdm.createAndPublishExplorationWithCards(
         'Exploration 1',
         'Algebra',
+        2,
         true
       );
     const explorationId2 =
-      await curriculumAdm.createAndPublishAMinimalExplorationWithTitle(
-        'Exploration 2'
-      );
+      await curriculumAdm.createAndPublishExplorationWithCards('Exploration 2');
     const explorationId3 =
-      await curriculumAdm.createAndPublishAMinimalExplorationWithTitle(
-        'Exploration 3'
-      );
+      await curriculumAdm.createAndPublishExplorationWithCards('Exploration 3');
 
     await curriculumAdm.navigateToTopicAndSkillsDashboardPage();
     await curriculumAdm.createAndPublishTopic(
